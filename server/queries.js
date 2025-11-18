@@ -31,7 +31,9 @@ const createDriver = (request, response) => {
     const {name_driver, name_team} = request.body
 
     pool.query(
-        'INSERT INTO drivers (name_driver, name_team) VALUES ($1, $2)', [name_driver, name_team], (error, results) => {
+        'INSERT INTO drivers (name_driver, name_team) VALUES ($1, $2) RETURNING *',
+        [name_driver, name_team],
+        (error, results) => {
         if (error) {
             throw(error)
         }
@@ -54,7 +56,7 @@ const updateDriver = (request, response) => {
 const deleteDriver = (request, response) => {
     const id = parseInt(request.params.id)
 
-    pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
+    pool.query('DELETE FROM drivers WHERE id = $1', [id], (error, results) => {
     if (error) {
       throw error
     }
