@@ -28,12 +28,11 @@ const getDriverById = (request, response) => {
 }
 
 const createDriver = (request, response) => {
-    const {name_driver, name_team} = request.body
+    const name_driver = request.body.name_driver
+    const name_team = request.body.name_team
 
     pool.query(
-        'INSERT INTO drivers (name_driver, name_team) VALUES ($1, $2) RETURNING *',
-        [name_driver, name_team],
-        (error, results) => {
+        'INSERT INTO drivers (name_driver, name_team) VALUES ($1, $2)', [name_driver, name_team], (error, results) => {
         if (error) {
             throw(error)
         }
@@ -43,7 +42,8 @@ const createDriver = (request, response) => {
 
 const updateDriver = (request, response) => {
     const id = parseInt(request.params.id)
-    const {name_driver, name_team} = request.body
+    const name_driver = request.body.name_driver
+    const name_team = request.body.name_team
 
     pool.query('UPDATE drivers SET name_driver = $1, name_team = $2 WHERE id = $3', [name_driver, name_team, id], (error, results) => {
         if (error) {

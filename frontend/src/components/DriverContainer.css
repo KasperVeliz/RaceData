@@ -1,0 +1,7 @@
+html {
+    display: flex;
+}
+.title {
+    align-items: center;
+    text-align: center;
+}

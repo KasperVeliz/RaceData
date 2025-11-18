@@ -11,17 +11,14 @@ app.use(express.static(path.resolve(__dirname, '../frontend/dist')))
 
 app.use(express.json())
 app.use(bodyParser.json())
-app.use(
-    bodyParser.urlencoded({
-      extended: true,
-    })
-)
+app.use(bodyParser.urlencoded({extended: true,}))
 
 app.get('/', (request, response) => {
 	response.sendFile(express.static(path.resolve(__dirname, '../frontend/dist', 'index.html')))
 })
 app.get('/drivers', db.getAllDrivers)
-app.post('/drivers/:id', db.createDriver)
+app.get('/drivers/:id', db.getDriverById)
+app.post('/drivers', db.createDriver)
 app.put('/drivers/:id', db.updateDriver)
 app.delete('/drivers/:id', db.updateDriver)
 

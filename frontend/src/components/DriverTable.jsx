@@ -1,3 +1,5 @@
+import './DriverTable.css'
+
 function TableHeader(){
     // Renders head of table
     return(
