@@ -7,7 +7,7 @@ function TableHeader(){
             <tr>
                 <th>Name</th>
                 <th>Team</th>
-                <th>Remove</th>
+                <th></th>
             </tr>
         </thead>
     )
@@ -22,7 +22,7 @@ const TableBody = (props) => {
                 <td>{row.name_driver}</td>
                 <td>{row.name_team}</td>
                 <td>
-                    <button onClick={()=> props.removeDriver(index)}>Delete</button>
+                    <button onClick={() => props.deleteDriver(row.id)}>Delete</button>
                 </td>
             </tr>
         )
@@ -35,7 +35,7 @@ function DriverTable(props){
     return(
         <table>
             <TableHeader/>
-            <TableBody driverData={props.driverData} removeDriver={props.removeDriver}/>
+            <TableBody driverData={props.driverData} deleteDriver={props.deleteDriver}/>
         </table>
     )
 }

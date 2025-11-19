@@ -50,10 +50,9 @@ function DriverContainer(){
         }
     }
 
-    const deleteDriver = async (params) => {
+    const deleteDriver = async id => {
         try {
-            const id = params.id
-            const response = await fetch('/drivers/id', {
+            const response = await fetch(`/drivers/${id}`, {
                 method: 'DELETE'
             })
             if(response.ok){
@@ -64,18 +63,22 @@ function DriverContainer(){
         }
     }
 
-    useEffect(() => {
-        fetchDrivers()
-    }, [])
-
-    const handleRemove = (index) => {
-        //const updatedDrivers = [...drivers.slice(0,index), ...drivers.slice(index + 1)]
-        //setDrivers(updatedDrivers)
+    const putDriver = async (params) => {
         try{
-            const driverToRemove = fetchDriverById(index + 1)
-            deleteDriver(driverToRemove)
-            fetchDrivers()
-        } catch (error){
+            const driver = params.name_driver
+            const team = params.name_team
+            const id = params.id
+            if((driver != null || driver != "") && (team != null || team != "")){
+                const response = await fetch(`/drivers/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({name_driver: driver, name_team: team})
+                })
+                console.log(response)
+            }
+        } catch (error) {
             console.log(error)
         }
     }
@@ -85,13 +88,22 @@ function DriverContainer(){
         setDrivers([...drivers, driver])
     }
 
+    const handleDelete = (id) => {
+        deleteDriver(id)
+        fetchDrivers
+    }
+
+    useEffect(() => {
+        fetchDrivers()
+    }, [drivers])
+
     return (
         <>
         <div>
             <div className="title">
                 <h1>Drivers</h1>
             </div>
-            <DriverTable driverData={drivers} removeDriver={handleRemove}/>
+            {drivers ? <DriverTable driverData={drivers} deleteDriver={handleDelete}/> : ""}
             <h1 className="title">Add a new driver</h1>
             <DriverForm onSubmitDriver={handleSubmit}/>
         </div>
