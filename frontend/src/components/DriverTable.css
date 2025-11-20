@@ -24,5 +24,6 @@ button {
     color: rgb(50, 50, 50);
 }
 .button-more {
-    
+    background: none;
+    color: lightgray;
 }
