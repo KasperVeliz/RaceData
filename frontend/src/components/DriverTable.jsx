@@ -16,13 +16,15 @@ function TableHeader(){
 const TableBody = (props) => {
     // Renders table data
 
-    const rows = props.driverData.map((row, index) => {
+    const rows = props.driverData.map((item) => {
         return(
-            <tr key={index}>
-                <td>{row.name_driver}</td>
-                <td>{row.name_team}</td>
+            <tr key={item.id}>
+                <td>{item.name_driver}</td>
+                <td>{item.name_team}</td>
                 <td>
-                    <button onClick={() => props.deleteDriver(row.id)}>Delete</button>
+                    <button className='button-remove' onClick={() => props.deleteDriver(item.id)}>Delete</button>
+                    <button className='button-edit' onClick={() => props.editDriver(item.id)}>EDIT</button>
+                    <button className='button-more' onClick={() => props.driverInfo(item.id)}>...</button>
                 </td>
             </tr>
         )
@@ -35,7 +37,7 @@ function DriverTable(props){
     return(
         <table>
             <TableHeader/>
-            <TableBody driverData={props.driverData} deleteDriver={props.deleteDriver}/>
+            <TableBody driverData={props.driverData} deleteDriver={props.deleteDriver} editDriver={props.editDriver} driverInfo={props.driverInfo}/>
         </table>
     )
 }

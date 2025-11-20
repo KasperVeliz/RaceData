@@ -36,12 +36,12 @@ const createDriver = (request, response) => {
         if (error) {
             throw(error)
         }
-        response.status(201).send(`Driver added with ID: ${results.insertId}`)
+        response.status(201).send(`Driver added with ID: ${results.id}`)
     })
 }
 
 const updateDriver = (request, response) => {
-    const id = parseInt(request.params.id)
+    const id = request.params.id
     const name_driver = request.body.name_driver
     const name_team = request.body.name_team
 
@@ -58,7 +58,8 @@ const deleteDriver = (request, response) => {
 
     pool.query('DELETE FROM drivers WHERE id = $1', [id], (error, results) => {
     if (error) {
-      throw error
+        console.log(error)
+        throw error
     }
     response.status(200).send(`User deleted with ID: ${id}`)
   })

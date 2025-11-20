@@ -14,5 +14,15 @@ th, td {
 }
 
 button {
+    margin: 10px;
+}
+.button-remove {
     background-color: rgb(199, 0, 0);
+}
+.button-edit {
+    background-color: lightgray;
+    color: rgb(50, 50, 50);
+}
+.button-more {
+    
 }

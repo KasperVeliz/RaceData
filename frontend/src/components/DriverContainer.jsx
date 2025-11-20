@@ -34,7 +34,7 @@ function DriverContainer(){
         try {
             const driver = params.name_driver
             const team = params.name_team
-            if((driver != null || driver != "") && (team != null || team != "")){
+            if((driver != null && driver != "") && (team != null && team != "")){
                 const response = await fetch('/drivers', {
                     method: 'POST',
                     headers: {
@@ -44,13 +44,16 @@ function DriverContainer(){
                 })
                 console.log(response)
             }
+
         }
         catch(error){
             console.log(error)
         }
+        fetchDrivers()
     }
 
     const deleteDriver = async id => {
+        console.log(id)
         try {
             const response = await fetch(`/drivers/${id}`, {
                 method: 'DELETE'
@@ -61,41 +64,51 @@ function DriverContainer(){
         } catch (error) {
             console.log(error)
         }
+        fetchDrivers()
     }
 
-    const putDriver = async (params) => {
+    const putDriver = async id => {
         try{
-            const driver = params.name_driver
-            const team = params.name_team
-            const id = params.id
-            if((driver != null || driver != "") && (team != null || team != "")){
+            let driver = prompt('New driver name:')
+            let team = prompt('New team name:')
+            if(driver != null && team != null){
                 const response = await fetch(`/drivers/${id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type' : 'application/json'
                     },
-                    body: JSON.stringify({name_driver: driver, name_team: team})
+                    body: JSON.stringify({id: id, name_driver: driver, name_team: team})
                 })
                 console.log(response)
+            }
+            else{
+                alert('Please enter a valid driver and team name.')
             }
         } catch (error) {
             console.log(error)
         }
+        fetchDrivers()
     }
 
-    const handleSubmit = (driver) => {
+    const handleSubmit = async (driver) => {
         postDriver(driver)
-        setDrivers([...drivers, driver])
     }
 
-    const handleDelete = (id) => {
+    const handleDelete = async (id) => {
         deleteDriver(id)
-        fetchDrivers
+    }
+
+    const handlePut = async (id) => {
+        putDriver(id)
+    }
+
+    const handleMore = async (id) => {
+        //
     }
 
     useEffect(() => {
         fetchDrivers()
-    }, [drivers])
+    }, [])
 
     return (
         <>
@@ -103,7 +116,7 @@ function DriverContainer(){
             <div className="title">
                 <h1>Drivers</h1>
             </div>
-            {drivers ? <DriverTable driverData={drivers} deleteDriver={handleDelete}/> : ""}
+            {drivers ? <DriverTable driverData={drivers} deleteDriver={handleDelete} editDriver={handlePut} driverInfo={handleMore}/> : "No Drivers"}
             <h1 className="title">Add a new driver</h1>
             <DriverForm onSubmitDriver={handleSubmit}/>
         </div>
