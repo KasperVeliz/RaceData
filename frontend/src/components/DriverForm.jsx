@@ -1,4 +1,5 @@
 import { useState } from "react"
+import './DriverForm.css'
 
 function DriverForm(props){
 
@@ -17,13 +18,17 @@ function DriverForm(props){
             event.preventDefault()
             props.onSubmitDriver({name_driver,name_team})
         }}>
-            <label htmlFor="name_driver">Driver Name: </label>
-            <input type="text" id="name_driver" name="name_driver" onChange={handleDriverNameChange} autoComplete="off"/>
+            <div className="form-row">
+                <input type="text" id="name_driver" name="name_driver" onChange={handleDriverNameChange} autoComplete="off" placeholder="Driver Name"/>
+            </div>
             <br></br><br></br>
-            <label htmlFor="url">Team Name: </label>
-            <input type="text" id="url" name="url" onChange={handleTeamNameChange} autoComplete="off"/>
+            <div className="form-row">
+                <input type="text" id="tame_team" name="name_team" onChange={handleTeamNameChange} autoComplete="off" placeholder="Team Name"/>
+            </div>
             <br></br><br></br>
-            <input type="submit" value={"Submit"}></input>
+            <div className="form-row">
+                <input className="submit-button" type="submit" value={"Submit"}></input>
+            </div>
         </form>
     )
 }

@@ -16,17 +16,6 @@ const getAllDrivers = (request, response) => {
     })
 }
 
-const getDriverById = (request, response) => {
-    const id = parseInt(request.params.id)
-
-    pool.query('SELECT * FROM drivers WHERE id = $1', [id], (error, results) => {
-        if (error) {
-            throw(error)
-        }
-        response.status(200).json(results.rows)
-    })
-}
-
 const createDriver = (request, response) => {
     const name_driver = request.body.name_driver
     const name_team = request.body.name_team
@@ -65,9 +54,20 @@ const deleteDriver = (request, response) => {
   })
 }
 
+const getDriverLapsById = (request, response) => {
+    const id = parseInt(request.params.id)
+
+    pool.query('SELECT lap_times FROM drivers WHERE id = $1', [id], (error, results) => {
+        if (error) {
+            throw(error)
+        }
+        response.status(200).json(results.rows)
+    })
+}
+
 module.exports = {
     getAllDrivers,
-    getDriverById,
+    getDriverLapsById,
     createDriver,
     updateDriver,
     deleteDriver,

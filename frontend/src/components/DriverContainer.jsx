@@ -19,17 +19,6 @@ function DriverContainer(){
         }
     }
 
-    const fetchDriverById = async (id) => {
-        try{
-            const response = await fetch(`/drivers/${id}`)
-            console.log(response)
-            const jsonData = await response.json()
-            return jsonData
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
     const postDriver = async (params) => {
         try {
             const driver = params.name_driver
@@ -102,10 +91,6 @@ function DriverContainer(){
         putDriver(id)
     }
 
-    const handleMore = async (id) => {
-        //
-    }
-
     useEffect(() => {
         fetchDrivers()
     }, [])
@@ -116,7 +101,7 @@ function DriverContainer(){
             <div className="title">
                 <h1>Drivers</h1>
             </div>
-            {drivers ? <DriverTable driverData={drivers} deleteDriver={handleDelete} editDriver={handlePut} driverInfo={handleMore}/> : "No Drivers"}
+            {drivers ? <DriverTable driverData={drivers} deleteDriver={handleDelete} editDriver={handlePut}/> : "No Drivers"}
             <h1 className="title">Add a new driver</h1>
             <DriverForm onSubmitDriver={handleSubmit}/>
         </div>

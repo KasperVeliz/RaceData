@@ -1,0 +1,23 @@
+.form-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input {
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 1em;
+    text-align: center;
+    background-color: lightgray;
+}
+
+input::placeholder {
+    color: rgb(74, 74, 74);
+    text-align: center;
+}
+
+input[type = "submit"]:hover {
+    background-color: rgb(0, 216, 0);
+    transition: 1s;
+}

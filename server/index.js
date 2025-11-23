@@ -17,7 +17,7 @@ app.get('/', (request, response) => {
 	response.sendFile(express.static(path.resolve(__dirname, '../frontend/dist', 'index.html')))
 })
 app.get('/drivers', db.getAllDrivers)
-app.get('/drivers/:id', db.getDriverById)
+app.get('/drivers/:id/laps', db.getDriverLapsById)
 app.post('/drivers', db.createDriver)
 app.put('/drivers/:id', db.updateDriver)
 app.delete('/drivers/:id', db.deleteDriver)
