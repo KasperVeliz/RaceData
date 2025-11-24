@@ -22,6 +22,6 @@ app.post('/drivers', db.createDriver)
 app.put('/drivers/:id', db.updateDriver)
 app.delete('/drivers/:id', db.deleteDriver)
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
     console.log(`App running on port ${port}.`)
 })
